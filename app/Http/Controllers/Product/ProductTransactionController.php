@@ -2,10 +2,23 @@
 
 namespace App\Http\Controllers\Product;
 
+use App\Product;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\ApiController;
 
-class ProductTransactionController extends Controller
+class ProductTransactionController extends ApiController
 {
-    //
+    public function __construct()
+    {
+        parent::__construct();
+    }
+
+    public function index(Product $product)
+    {
+        $this->allowedAdminAction();
+
+        $transactions = $product->transactions;
+
+        return $this->showAll($transactions);
+    }
 }
